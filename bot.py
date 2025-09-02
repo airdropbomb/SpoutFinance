@@ -613,7 +613,7 @@ class Spout:
                 response = await asyncio.to_thread(requests.post, url=url, headers=headers, data=data, proxies=proxy_url, timeout=60, impersonate="chrome")
                 response.raise_for_status()
                 return response.json()
-            except Exception as e:
+            except (Exception, requests.RequestsError) as e:
                 if attempt < retries:
                     await asyncio.sleep(5)
                     continue
